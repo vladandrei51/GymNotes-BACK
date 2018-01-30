@@ -1,9 +1,0 @@
-rest\JAXRSConfiguration.class
-main.class
-model\Exercise.class
-model\MuscleGroup.class
-model\Lift.class
-repository\IRepository.class
-utils\HTMLParser.class
-repository\ExerciseRepository.class
-rest\ExerciseEndpoint.class
