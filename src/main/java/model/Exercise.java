@@ -1,6 +1,5 @@
 package model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -17,7 +16,6 @@ public class Exercise implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private int id;
 
     private String musclegroup;
@@ -39,7 +37,6 @@ public class Exercise implements Serializable {
     private String type;
 
     //bi-directional many-to-one association to Lift
-    @JsonIgnore
     @OneToMany(mappedBy = "exercise")
     private List<Lift> lifts;
 
@@ -47,7 +44,6 @@ public class Exercise implements Serializable {
 
     public Exercise() {
     }
-
     public int getId() {
         return this.id;
     }
@@ -103,7 +99,6 @@ public class Exercise implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
     public List<Lift> getLifts() {
         return this.lifts;
     }
@@ -159,10 +154,4 @@ public class Exercise implements Serializable {
                 '}';
     }
 
-    public boolean isValid(){
-        if (getName().length() > 0 && getMusclegroup().length() > 0){
-            return true;
-        }
-        return false;
-    }
 }

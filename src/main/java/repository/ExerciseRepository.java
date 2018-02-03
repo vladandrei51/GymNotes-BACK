@@ -10,6 +10,8 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class ExerciseRepository implements IRepository<Exercise> {
 
@@ -37,8 +39,9 @@ public class ExerciseRepository implements IRepository<Exercise> {
         return query.getResultList();
     }
 
+
     @Override
-    public int getSize() {
+    public int size() {
         return getAll().size();
     }
 
@@ -68,13 +71,13 @@ public class ExerciseRepository implements IRepository<Exercise> {
         exercise.setDescription(obj.getDescription());
         exercise.setType(obj.getType());
 
-        //        int initialSize = getSize();
+        //        int initialSize = size();
 
         entitymanager.persist(exercise);
 
         entitymanager.getTransaction().commit();
 
-        //        if (initialSize != getSize()){
+        //        if (initialSize != size()){
         //            Exercise latestExercise = getLatest();
         //
         //            if (obj.getLifts().size() > 0){
@@ -135,4 +138,5 @@ public class ExerciseRepository implements IRepository<Exercise> {
         }
         return exercises;
     }
+
 }

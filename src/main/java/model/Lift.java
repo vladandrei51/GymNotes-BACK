@@ -1,7 +1,5 @@
 package model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -16,7 +14,6 @@ public class Lift implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @JsonIgnore
     private int id;
 
     private String notes;
@@ -30,7 +27,6 @@ public class Lift implements Serializable {
 
     //bi-directional many-to-one association to Exercise
     @ManyToOne
-    @JsonIgnore
     private Exercise exercise;
 
     public Lift() {

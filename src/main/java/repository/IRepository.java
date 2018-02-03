@@ -9,7 +9,7 @@ public interface IRepository<E> {
 
     public List<E> getAll();
 
-    public int getSize();
+    public int size();
 
     E add(E obj);
 

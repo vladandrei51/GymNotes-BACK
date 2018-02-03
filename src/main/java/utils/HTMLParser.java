@@ -34,7 +34,7 @@ public class HTMLParser {
             exercise.setDescription(getExerciseDescription());
             exercise.setType(getExerciseType());
 
-            if (exercise.isValid())
+            if (exercise.getName().length() > 0)
                 exercises.add(exercise);
         }
         return exercises;

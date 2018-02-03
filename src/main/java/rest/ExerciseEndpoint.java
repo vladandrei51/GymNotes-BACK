@@ -27,13 +27,14 @@ public class ExerciseEndpoint {
     /*
        Returns all the exercises in the db
     */
-    public Response getExercises() {
+    public Response getAll() {
         List<Exercise> exercises = repository.getAll();
         if (exercises.size() == 0) {
             return Response.status(Response.Status.NO_CONTENT).build();
         }
         return Response.ok(exercises).build();
     }
+
 
     @GET
     @Path("/get/musclegroup/{musclegroup}")
@@ -67,8 +68,8 @@ public class ExerciseEndpoint {
     @GET
     @Path("/size")
     @Produces(TEXT_PLAIN)
-    public Response countExercises() {
-        int count = repository.getSize();
+    public Response size() {
+        int count = repository.size();
 
         if (count == 0)
             return Response.status(Response.Status.NO_CONTENT).build();
@@ -80,8 +81,7 @@ public class ExerciseEndpoint {
     @POST
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Exercise AddExercise(Exercise exercise)
-    {
+    public Exercise AddExercise(Exercise exercise) {
         return repository.add(exercise);
     }
 
