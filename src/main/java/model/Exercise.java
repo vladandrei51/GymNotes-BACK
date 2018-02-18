@@ -1,9 +1,8 @@
 package model;
 
 
-import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
+import java.io.Serializable;
 
 
 /**
@@ -36,14 +35,10 @@ public class Exercise implements Serializable {
     @Column(name = "type")
     private String type;
 
-    //bi-directional many-to-one association to Lift
-    @OneToMany(mappedBy = "exercise")
-    private List<Lift> lifts;
-
-
 
     public Exercise() {
     }
+
     public int getId() {
         return this.id;
     }
@@ -99,13 +94,6 @@ public class Exercise implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-    public List<Lift> getLifts() {
-        return this.lifts;
-    }
-
-    public void setLifts(List<Lift> lifts) {
-        this.lifts = lifts;
-    }
 
     public String getType() {
         return type;
@@ -115,19 +103,6 @@ public class Exercise implements Serializable {
         this.type = type;
     }
 
-    public Lift addLift(Lift lift) {
-        getLifts().add(lift);
-        lift.setExercise(this);
-
-        return lift;
-    }
-
-    public Lift removeLift(Lift lift) {
-        getLifts().remove(lift);
-        lift.setExercise(null);
-
-        return lift;
-    }
 
     @Override
     public boolean equals(Object o) {

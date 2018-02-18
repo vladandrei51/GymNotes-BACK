@@ -4,8 +4,13 @@ import utils.HTMLParser;
 
 import java.io.IOException;
 
-public class main {
-    public static void main(String[] args) throws IOException {
+public class Main {
+    public static void main(String[] args) {
+
+
+    }
+
+    private void addExercisesFromParser() {
         try {
             HTMLParser muscleGroupsFinder = new HTMLParser(HTMLParser.EXERCISES_URL);
             ExerciseRepository repository = new ExerciseRepository();
@@ -15,7 +20,6 @@ public class main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
     }
 }
