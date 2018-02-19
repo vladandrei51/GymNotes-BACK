@@ -7,8 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.stream.Collectors;
 
 public class ExerciseRepository implements IRepository<Exercise> {
 
@@ -31,9 +31,9 @@ public class ExerciseRepository implements IRepository<Exercise> {
     }
 
     @Override
-    public List<Exercise> getAll() {
+    public HashSet<Exercise> getAll() {
         TypedQuery<Exercise> query = entitymanager.createNamedQuery("Exercise.findAll", Exercise.class);
-        return query.getResultList();
+        return new HashSet<>(query.getResultList());
     }
 
 
@@ -42,37 +42,18 @@ public class ExerciseRepository implements IRepository<Exercise> {
         return getAll().size();
     }
 
-    public int getIDFromName(String name) {
-        for (Exercise exercise : getAll()) {
-            if (exercise.getName().equals(name)) return exercise.getId();
-        }
-        return -1;
-    }
 
     @Override
     public Exercise add(Exercise obj) {
 
-        if (getAll().contains(obj))
-            return null;
-
         entitymanager.getTransaction().begin();
 
-        Exercise exercise = new Exercise();
 
-        exercise.setName(obj.getName());
-        exercise.setPicsUrl(obj.getPicsUrl());
-        exercise.setRating(obj.getRating());
-        exercise.setVideoUrl(obj.getVideoUrl());
-        exercise.setMusclegroup(obj.getMusclegroup());
-        exercise.setDescription(obj.getDescription());
-        exercise.setType(obj.getType());
-
-
-        entitymanager.persist(exercise);
+        entitymanager.persist(obj);
 
         entitymanager.getTransaction().commit();
 
-        return exercise;
+        return obj;
     }
 
     @Override
@@ -93,15 +74,8 @@ public class ExerciseRepository implements IRepository<Exercise> {
     }
 
 
-    public List<Exercise> getByMuscleGroupURL(MuscleGroup muscleGroup) {
-        List<Exercise> exercises = new ArrayList<>();
-        for (Exercise exercise : getAll()) {
-            MuscleGroup muscleGroup1 = MuscleGroup.getEnumFromName(exercise.getMusclegroup());
-            if (muscleGroup1.getUrl().equals(muscleGroup.getUrl())) {
-                exercises.add(exercise);
-            }
-        }
-        return exercises;
+    public HashSet<Exercise> getByMuscleGroupURL(MuscleGroup muscleGroup) {
+        return getAll().stream().filter(e -> e.getMusclegroup().equals(muscleGroup.getUrl())).collect(Collectors.toCollection(HashSet::new));
     }
 
 }

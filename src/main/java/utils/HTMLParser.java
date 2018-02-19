@@ -8,7 +8,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 public class HTMLParser {
     private Document doc;
@@ -20,22 +23,27 @@ public class HTMLParser {
         doc = Jsoup.connect(url).get();
     }
 
-    public List<Exercise> getExercises() throws IOException {
-        ArrayList<Exercise> exercises = new ArrayList<>();
-        Map<String, MuscleGroup> links = allExerciseLinks();
-        for (Map.Entry<String, MuscleGroup> entry : links.entrySet()) {
+    public HashSet<Exercise> getExercises() throws IOException {
+        HashSet<Exercise> exercises = new HashSet<>();
+        HashMap<String, MuscleGroup> links = allExerciseLinks();
+        for (HashMap.Entry<String, MuscleGroup> entry : links.entrySet()) {
             this.doc = Jsoup.connect(entry.getKey()).get();
             Exercise exercise = new Exercise();
             exercise.setName(getExerciseName());
+            if (exercise.getName().length() == 0) continue;
             exercise.setVideoUrl(getExerciseVideo());
+            if (exercise.getVideoUrl().length() == 0) continue;
             exercise.setMusclegroup(entry.getValue().getName());
             exercise.setRating(getExerciseRating());
+            if (exercise.getRating().length() == 0) continue;
             exercise.setPicsUrl(getExercisePics());
+            if (exercise.getPicsUrl().length() == 0) continue;
             exercise.setDescription(getExerciseDescription());
+            if (exercise.getDescription().length() == 0) continue;
             exercise.setType(getExerciseType());
+            if (exercise.getType().length() == 0) continue;
 
-            if (exercise.getName().length() > 0)
-                exercises.add(exercise);
+            exercises.add(exercise);
         }
         return exercises;
     }
@@ -84,8 +92,8 @@ public class HTMLParser {
     }
 
 
-    private Map<String, MuscleGroup> allExerciseLinks() throws IOException {
-        Map<String, MuscleGroup> links = new HashMap<>();
+    private HashMap<String, MuscleGroup> allExerciseLinks() throws IOException {
+        HashMap<String, MuscleGroup> links = new HashMap<>();
 
         for (MuscleGroup muscleGroup : MuscleGroup.values()) {
             for (String link : exerciseLinksFromMuscleGroup(muscleGroup.getUrl()))
@@ -95,9 +103,9 @@ public class HTMLParser {
     }
 
 
-    private ArrayList<String> getSubLinksFromMG(String url) throws IOException {
+    private HashSet<String> getSubLinksFromMG(String url) throws IOException {
         String paramURL = url;
-        ArrayList<String> links = new ArrayList<>();
+        HashSet<String> links = new HashSet<>();
 
         this.doc = Jsoup.connect(url).get();
         for (int i = 1; !doc.getElementsByClass("ExCategory-results").select("p").first().text().equals(NO_EXERCISES); i++) {
@@ -111,9 +119,9 @@ public class HTMLParser {
         return links;
     }
 
-    private ArrayList<String> exerciseLinksFromMuscleGroup(String url) throws IOException {
-        ArrayList<String> allLinks = new ArrayList<>();
-        ArrayList<String> allSubLinks = getSubLinksFromMG(url);
+    private HashSet<String> exerciseLinksFromMuscleGroup(String url) throws IOException {
+        HashSet<String> allLinks = new HashSet<>();
+        HashSet<String> allSubLinks = getSubLinksFromMG(url);
         for (String link : allSubLinks) {
             this.doc = Jsoup.connect(link).get();
             Elements elements = doc.getElementsByClass("ExResult-resultsHeading");

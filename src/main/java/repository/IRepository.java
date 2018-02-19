@@ -1,13 +1,13 @@
 package repository;
 
-import java.util.List;
+import java.util.Set;
 
 public interface IRepository<E> {
 
 
     public E getOne(E e);
 
-    public List<E> getAll();
+    public Set<E> getAll();
 
     public int size();
 

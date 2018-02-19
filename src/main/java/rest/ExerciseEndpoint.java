@@ -9,8 +9,8 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
@@ -28,7 +28,7 @@ public class ExerciseEndpoint {
        Returns all the exercises in the db
     */
     public Response getAll() {
-        List<Exercise> exercises = repository.getAll();
+        Set<Exercise> exercises = repository.getAll();
         if (exercises.size() == 0) {
             return Response.status(Response.Status.NO_CONTENT).build();
         }
@@ -43,7 +43,7 @@ public class ExerciseEndpoint {
         Returns all the exercise from a specifc muscle group
     */
     public Response getByMuscleGroup(@PathParam("musclegroup") String url) {
-        List<Exercise> exercises = repository.getByMuscleGroupURL(MuscleGroup.getEnumFromURL(url));
+        HashSet<Exercise> exercises = repository.getByMuscleGroupURL(MuscleGroup.getEnumFromURL(url));
         if (exercises.size() == 0) {
             return Response.status(Response.Status.NO_CONTENT).build();
         }

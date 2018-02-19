@@ -7,10 +7,10 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
 
-
+        addExercisesFromParser();
     }
 
-    private void addExercisesFromParser() {
+    private static void addExercisesFromParser() {
         try {
             HTMLParser muscleGroupsFinder = new HTMLParser(HTMLParser.EXERCISES_URL);
             ExerciseRepository repository = new ExerciseRepository();
