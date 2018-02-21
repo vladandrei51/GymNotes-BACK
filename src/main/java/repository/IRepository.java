@@ -1,13 +1,15 @@
 package repository;
 
-import java.util.Set;
+import model.Exercise;
+
+import java.util.List;
 
 public interface IRepository<E> {
 
 
     public E getOne(E e);
 
-    public Set<E> getAll();
+    public List<Exercise> getAll();
 
     public int size();
 

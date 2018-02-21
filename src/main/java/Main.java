@@ -7,7 +7,9 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
 
-        addExercisesFromParser();
+//        addExercisesFromParser();
+//        ExerciseRepository exerciseRepository = new ExerciseRepository();
+//        System.out.println(exerciseRepository.getByMuscleGroupURL(MuscleGroup.GLUTES));
     }
 
     private static void addExercisesFromParser() {

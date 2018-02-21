@@ -7,7 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class ExerciseRepository implements IRepository<Exercise> {
@@ -31,9 +32,9 @@ public class ExerciseRepository implements IRepository<Exercise> {
     }
 
     @Override
-    public HashSet<Exercise> getAll() {
+    public List<Exercise> getAll() {
         TypedQuery<Exercise> query = entitymanager.createNamedQuery("Exercise.findAll", Exercise.class);
-        return new HashSet<>(query.getResultList());
+        return query.getResultList();
     }
 
 
@@ -47,12 +48,8 @@ public class ExerciseRepository implements IRepository<Exercise> {
     public Exercise add(Exercise obj) {
 
         entitymanager.getTransaction().begin();
-
-
         entitymanager.persist(obj);
-
         entitymanager.getTransaction().commit();
-
         return obj;
     }
 
@@ -60,7 +57,6 @@ public class ExerciseRepository implements IRepository<Exercise> {
     public void delete(int id) {
         entitymanager.getTransaction().begin();
         Exercise exercise = findOneByID(id);
-
 
         exercise.setDescription(null);
         exercise.setPicsUrl(null);
@@ -74,8 +70,8 @@ public class ExerciseRepository implements IRepository<Exercise> {
     }
 
 
-    public HashSet<Exercise> getByMuscleGroupURL(MuscleGroup muscleGroup) {
-        return getAll().stream().filter(e -> e.getMusclegroup().equals(muscleGroup.getUrl())).collect(Collectors.toCollection(HashSet::new));
+    public List<Exercise> getByMuscleGroupURL(MuscleGroup muscleGroup) {
+        return getAll().stream().filter(e -> e.getMusclegroup().equals(muscleGroup.getName())).collect(Collectors.toCollection(ArrayList::new));
     }
 
 }
