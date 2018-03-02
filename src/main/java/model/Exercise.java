@@ -107,9 +107,7 @@ public class Exercise implements Serializable {
 
         Exercise exercise = (Exercise) o;
 
-        if (musclegroup != null ? !musclegroup.equals(exercise.musclegroup) : exercise.musclegroup != null)
-            return false;
-        return name != null ? name.equals(exercise.name) : exercise.name == null;
+        return (musclegroup != null ? musclegroup.equals(exercise.musclegroup) : exercise.musclegroup == null) && (name != null ? name.equals(exercise.name) : exercise.name == null);
     }
 
     @Override
