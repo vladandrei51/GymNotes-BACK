@@ -66,7 +66,7 @@ public class HTMLParser {
         return rating.replaceAll(" .*", "");
     }
 
-    private String getExerciseDescription() throws IOException {
+    private String getExerciseDescription() {
         return doc.select("ol[class=ExDetail-descriptionSteps]").text();
     }
 

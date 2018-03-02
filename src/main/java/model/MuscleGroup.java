@@ -25,8 +25,8 @@ public enum MuscleGroup {
     private static final String EXERCISES_URL = "https://www.bodybuilding.com/exercises/muscle/";
 
 
-    private static Map<String, MuscleGroup> nameEnumMap = new HashMap<String, MuscleGroup>();
-    private static Map<String, MuscleGroup> URLEnumMap = new HashMap<String, MuscleGroup>();
+    private static Map<String, MuscleGroup> nameEnumMap = new HashMap<>();
+    private static Map<String, MuscleGroup> URLEnumMap = new HashMap<>();
 
 
     static {
