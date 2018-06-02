@@ -34,7 +34,7 @@ public class HTMLParser {
             exercise.setVideoUrl(getExerciseVideo());
             if (exercise.getVideoUrl().length() == 0) continue;
             exercise.setMusclegroup(entry.getValue().getName());
-            exercise.setRating(getExerciseRating());
+            exercise.setRating((getExerciseRating().equals("n/a") ? "0" : getExerciseRating()));
             if (exercise.getRating().length() == 0) continue;
             exercise.setPicsUrl(getExercisePics());
             if (exercise.getPicsUrl().length() == 0) continue;
