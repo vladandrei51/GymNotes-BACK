@@ -60,7 +60,7 @@ public class ExerciseRepository implements IRepository<Exercise> {
 
         exercise.setDescription(null);
         exercise.setPicsUrl(null);
-        exercise.setRating(null);
+        exercise.setRating(0f);
         exercise.setMusclegroup(null);
         exercise.setVideoUrl(null);
         exercise.setName(null);
@@ -73,5 +73,20 @@ public class ExerciseRepository implements IRepository<Exercise> {
     public List<Exercise> getByMuscleGroupURL(MuscleGroup muscleGroup) {
         return getAll().stream().filter(e -> e.getMusclegroup().equals(muscleGroup.getName())).collect(Collectors.toCollection(ArrayList::new));
     }
+
+    public List<Exercise> getAllCardio() {
+        List<Exercise> exercises = new ArrayList<>();
+        List<String> cardioTypes = new ArrayList<>();
+        cardioTypes.add("Cardio");
+        cardioTypes.add("Plyometrics");
+        cardioTypes.add("Stretching");
+        for (Exercise exercise : getAll()) {
+            if (cardioTypes.contains(exercise.getType())) {
+                exercises.add(exercise);
+            }
+        }
+        return exercises;
+    }
+
 
 }

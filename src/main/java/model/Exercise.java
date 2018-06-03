@@ -27,7 +27,7 @@ public class Exercise implements Serializable {
     @Column(name = "description")
     private String description;
 
-    private String rating;
+    private float rating;
 
     @Column(name = "video_url")
     private String videoUrl;
@@ -67,11 +67,11 @@ public class Exercise implements Serializable {
         this.picsUrl = picsUrl;
     }
 
-    public String getRating() {
+    public float getRating() {
         return this.rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 

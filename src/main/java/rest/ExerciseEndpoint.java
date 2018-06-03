@@ -50,6 +50,20 @@ public class ExerciseEndpoint {
     }
 
     @GET
+    @Path("/get/cardio")
+    @Produces(APPLICATION_JSON)
+    /*
+        Returns all the exercise from a specifc muscle group
+    */
+    public Response getByMuscleGroup() {
+        List<Exercise> exercises = repository.getAllCardio();
+        if (exercises.size() == 0) {
+            return Response.status(Response.Status.NO_CONTENT).build();
+        }
+        return Response.ok(exercises).build();
+    }
+
+    @GET
     @Path("/get/id/{id}")
     @Produces(APPLICATION_JSON)
     /*
