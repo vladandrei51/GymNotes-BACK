@@ -29,19 +29,16 @@ public class HTMLParser {
         for (HashMap.Entry<String, MuscleGroup> entry : links.entrySet()) {
             this.doc = Jsoup.connect(entry.getKey()).get();
             Exercise exercise = new Exercise();
+            if (getExerciseName().length() == 0 || getExercisePics().length() == 0 && getExerciseType().length() == 0)
+                continue;
             exercise.setName(getExerciseName());
-            if (exercise.getName().length() == 0) continue;
-            exercise.setVideoUrl(getExerciseVideo());
-            if (exercise.getVideoUrl().length() == 0) continue;
+            exercise.setVideoUrl(getExerciseVideo().length() > 0 ? getExerciseVideo() : "");
             exercise.setMusclegroup(entry.getValue().getName());
-            exercise.setRating((getExerciseRating().equals("n/a") ? 0 : Float.valueOf(getExerciseRating())));
-            if (!(exercise.getRating() >= 0 && exercise.getRating() <= 10)) continue;
-            exercise.setPicsUrl(getExercisePics());
-            if (exercise.getPicsUrl().length() == 0) continue;
-            exercise.setDescription(getExerciseDescription());
-            if (exercise.getDescription().length() == 0) continue;
-            exercise.setType(getExerciseType());
-            if (exercise.getType().length() == 0) continue;
+            exercise.setRating((getExerciseRating().equals("n/a") ? 0 : getExerciseRating().length() > 0 ? Float.valueOf(getExerciseRating()) : 0));
+            exercise.setPicsUrl(getExercisePics().length() > 0 ? getExercisePics() : "");
+            exercise.setDescription(getExerciseDescription().length() > 0 ? getExerciseDescription() : "");
+            exercise.setType(getExerciseType().length() > 0 ? getExerciseType() : "");
+
 
             exercises.add(exercise);
         }
