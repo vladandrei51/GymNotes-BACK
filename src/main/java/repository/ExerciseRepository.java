@@ -31,6 +31,10 @@ public class ExerciseRepository implements IRepository<Exercise> {
         return entitymanager.find(Exercise.class, id);
     }
 
+    public Exercise findOneByName(String name) {
+        return getAll().stream().filter(l -> l.getName().equals(name)).findFirst().orElse(null);
+    }
+
     @Override
     public List<Exercise> getAll() {
         TypedQuery<Exercise> query = entitymanager.createNamedQuery("Exercise.findAll", Exercise.class);

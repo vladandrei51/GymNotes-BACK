@@ -77,6 +77,20 @@ public class ExerciseEndpoint {
         return Response.ok(exercise).build();
     }
 
+    @GET
+    @Path("/get/name/{name}")
+    @Produces(APPLICATION_JSON)
+    /*
+        Gets exercise by ID
+    */
+    public Response getExerciseByName(@PathParam("name") String name) {
+        Exercise exercise = repository.findOneByName(name);
+        if (exercise == null) {
+            return Response.status(Response.Status.NO_CONTENT).build();
+        }
+        return Response.ok(exercise).build();
+    }
+
 
     @GET
     @Path("/size")
